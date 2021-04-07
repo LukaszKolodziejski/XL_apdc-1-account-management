@@ -29,6 +29,6 @@
 }
 
 .Invalid:focus {
-  border: 1px solid rgb(28, 56, 236);
-  background-color: rgba(113, 128, 228, 0.204);
+  border: 1px solid red;
+  background-color: rgba(236, 138, 138, 0.204);
 }
