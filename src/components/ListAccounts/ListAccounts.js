@@ -7,20 +7,31 @@ const ListAccounts = (props) => {
   const { accounts, userId } = props;
 
   console.log(userId);
+  console.log(accounts);
 
-  const allAccount = accounts.map((account) => (
-    <SingleAccount
-      key={account.publicUserId}
-      publicUserId={account.publicUserId}
-      email={account.email}
-      profile={account.kindOfProfile}
-      state={account.state}
-      role={account.role}
-    />
-  ));
+  const myAccount = accounts.find((account) => account.userId === userId);
+  //   console.log(myAccount.publicUserId);
+
+  const allAccount = accounts.map((account) => {
+    if (myAccount.role === "USER") {
+      if (account.role === "USER" && account.kindOfProfile === "Public") {
+        return (
+          <SingleAccount
+            key={account.publicUserId}
+            publicUserId={account.publicUserId}
+            email={account.email}
+            profile={account.kindOfProfile}
+            state={account.state}
+            role={account.role}
+            myAccount={myAccount.userId === account.userId}
+          />
+        );
+      }
+    }
+  });
   return (
     <section className={styles.ListAccounts}>
-      <ListAccountsHeader />
+      <ListAccountsHeader role={myAccount.role} />
       {allAccount}
     </section>
   );
