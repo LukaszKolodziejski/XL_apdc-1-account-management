@@ -1,0 +1,48 @@
+.ListAccountsHeader {
+  display: -ms-grid;
+  display: grid;
+  /* grid-template-columns: 15%; */
+  grid-template-columns: 15% 15% 12% 12% 30%;
+  padding: 20px 0 7px 42px;
+  text-align: left;
+  border-bottom: 2px solid #ededf0;
+}
+
+/* @media (min-width: 800px) {
+  .ListAccountsHeader {
+    grid-template-columns: 15%;
+  }
+} */
+
+@media (min-width: 1200px) {
+  .ListAccountsHeader {
+    grid-template-columns: 15% 15% 15% 15% 30%;
+  }
+}
+
+.ListAccountsHeader span {
+  display: inline-block;
+  color: #9ca7d3;
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 44px;
+}
+
+.ListAccountsHeader span:nth-child(1) {
+  grid-column: 1;
+}
+
+.ListAccountsHeader span:nth-child(2) {
+  grid-column: 2;
+}
+.ListAccountsHeader span:nth-child(3) {
+  grid-column: 3;
+}
+
+.ListAccountsHeader span:nth-child(4) {
+  grid-column: 4;
+}
+.ListAccountsHeader span:nth-child(5) {
+  grid-column: 5;
+}
