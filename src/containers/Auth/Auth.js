@@ -170,6 +170,7 @@ class Auth extends Component {
               {this.state.isSignup ? "registration" : "login"}
             </h4>
             {errorMessage}
+            <button onClick={() => this.props.onLogout()}>Logout</button>
             <form onSubmit={this.formHandler}>
               {allInputs}
               <WrapperAuth x="40">
@@ -209,6 +210,7 @@ const mapStateToProps = ({ auth }) => ({
 const mapDispatchToProps = (dispatch) => ({
   onAuth: (email, password, isSignup, publicUserId) =>
     dispatch(actionCreators.auth(email, password, isSignup, publicUserId)),
+  onLogout: () => dispatch(actionCreators.logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
