@@ -15,37 +15,24 @@ class Accounts extends Component {
 
   render() {
     let allAccounts;
-    // const { accounts, userId, loading, idToken } = this.props;
-    // loading
-    //   ? (allAccounts = <Spinner />)
-    //   : (allAccounts = <ListAccounts accounts={accounts} userId={userId} />);
+    const { accounts, userId, loading, idToken, loadingAccounts } = this.props;
 
-    this.props.loading
+    loadingAccounts
       ? (allAccounts = <Spinner />)
-      : this.props.idToken
+      : idToken
       ? (allAccounts = allAccounts = (
-          <ListAccounts
-            accounts={this.props.accounts}
-            userId={this.props.userId}
-          />
+          <ListAccounts accounts={accounts} userId={userId} />
         ))
       : (allAccounts = <NoToken />);
-    // loading
-    //   ? (allAccounts = <Spinner />)
-    //   : idToken
-    //   ? (allAccounts = allAccounts = (
-    //       <ListAccounts accounts={accounts} userId={userId} />
-    //     ))
-    //   : (allAccounts = <NoToken />);
 
     return <div className={styles.Accounts}>{allAccounts}</div>;
   }
 }
 
 const mapStateToProps = ({ account, auth }) => {
-  const { accounts } = { ...account };
+  const { accounts, loadingAccounts } = { ...account };
   const { idToken, userId, loading } = { ...auth };
-  return { accounts, loading, idToken, userId };
+  return { accounts, loading, idToken, userId, loadingAccounts };
 };
 
 const mapDispatchToProps = (dispatch) => ({
