@@ -70,7 +70,7 @@ export const authCheckState = () => (dispatch) => {
       dispatch(authStart());
       dispatch(authSuccess(token, userId));
       dispatch(checkAuthTimeout(expirationDateInMiliseconds));
-      //   dispatch(actions.orders(token));
+      dispatch(actions.accounts(token));
     } else {
       dispatch(logout());
     }

@@ -94,7 +94,7 @@ class Auth extends Component {
   }
 
   inputHandler = (e, key) => {
-    const { controls } = this.state;
+    const { controls, isSignup } = this.state;
     const updatedControls = {
       ...controls,
       [key]: {
@@ -110,7 +110,7 @@ class Auth extends Component {
         formIsValid = updatedControls[key].valid && formIsValid;
       }
     }
-    if (updatedControls.password.value) {
+    if (updatedControls.password.value && isSignup) {
       formIsValid =
         updatedControls.password.value === updatedControls.password2.value;
     }
@@ -183,7 +183,11 @@ class Auth extends Component {
                 Switch: {this.state.isSignup ? "Sign up" : "Sign in"}
               </Button>
             </WrapperAuth>
-            {this.props.idToken && <Redirect to="/user" />}
+            {this.props.idToken && !isSignup ? (
+              <Redirect to="/accounts" />
+            ) : this.props.idToken ? (
+              <Redirect to="/user" />
+            ) : null}
           </div>
         ));
     this.props.error

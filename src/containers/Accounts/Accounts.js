@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./Accounts.module.css";
 import ListAccounts from "../../components/ListAccounts/ListAccounts";
 import Spinner from "../../components/UI/Spinner/Spinner";
-// import NoToken from "./NoToken";
+import NoToken from "./NoToken";
 import * as actionCreators from "../../store/actions/index";
 import { connect } from "react-redux";
 
@@ -14,31 +14,38 @@ class Accounts extends Component {
   componentDidMount = () => this.props.onLoadingAccounts(this.props.idToken);
 
   render() {
-    let accounts;
-    this.props.loading
-      ? (accounts = <Spinner />)
-      : (accounts = <ListAccounts accounts={this.props.accounts} />);
+    let allAccounts;
+    // const { accounts, userId, loading, idToken } = this.props;
+    // loading
+    //   ? (allAccounts = <Spinner />)
+    //   : (allAccounts = <ListAccounts accounts={accounts} userId={userId} />);
 
-    // let accounts;
-    // this.props.loading
-    //   ? (accounts = <Spinner />)
-    //   : this.props.idToken
-    //   ? (accounts = this.props.accounts.map((obj) => (
-    //       <Order
-    //         key={obj.id}
-    //         ingredients={obj.ingredients}
-    //         totalPrice={obj.totalPrice}
-    //       />
-    //     )))
-    //   : (accounts = <NoToken />);
-    return <div className={styles.Accounts}>{accounts}</div>;
+    this.props.loading
+      ? (allAccounts = <Spinner />)
+      : this.props.idToken
+      ? (allAccounts = allAccounts = (
+          <ListAccounts
+            accounts={this.props.accounts}
+            userId={this.props.userId}
+          />
+        ))
+      : (allAccounts = <NoToken />);
+    // loading
+    //   ? (allAccounts = <Spinner />)
+    //   : idToken
+    //   ? (allAccounts = allAccounts = (
+    //       <ListAccounts accounts={accounts} userId={userId} />
+    //     ))
+    //   : (allAccounts = <NoToken />);
+
+    return <div className={styles.Accounts}>{allAccounts}</div>;
   }
 }
 
 const mapStateToProps = ({ account, auth }) => {
-  const { accounts, loading } = { ...account };
-  const { idToken } = { ...auth };
-  return { accounts, loading, idToken };
+  const { accounts } = { ...account };
+  const { idToken, userId, loading } = { ...auth };
+  return { accounts, loading, idToken, userId };
 };
 
 const mapDispatchToProps = (dispatch) => ({
