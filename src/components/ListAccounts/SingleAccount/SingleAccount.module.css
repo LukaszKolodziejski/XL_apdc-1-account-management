@@ -38,3 +38,10 @@
   display: inline-block;
   font-family: "Open Sans";
 }
+
+.MyAccount {
+  background-color: rgba(113, 182, 99, 0.734);
+  color: rgb(255, 255, 255);
+  /* font-weight: bold; */
+  /* background-color: rgba(67, 108, 58, 0.449); */
+}

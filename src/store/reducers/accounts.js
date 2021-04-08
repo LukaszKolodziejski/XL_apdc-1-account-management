@@ -2,13 +2,13 @@ import * as actionType from "../actions/actionTypes";
 
 const initialState = {
   accounts: [],
-  loading: true,
+  loadingAccounts: true,
 };
 
 const accounts = (state, action) => ({
   ...state,
   accounts: action.accounts,
-  loading: action.loading,
+  loadingAccounts: action.loadingAccounts,
 });
 
 const reducer = (state = initialState, action) =>
