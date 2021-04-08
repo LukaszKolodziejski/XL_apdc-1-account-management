@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-
+import "./Layout.css";
 const Layout = (props) => {
   return (
     <Fragment>
-      <main>{props.children}</main>
+      <main className="Layout">{props.children}</main>
     </Fragment>
   );
 };
