@@ -6,15 +6,13 @@ import App from "./App";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import authReducer from "./store/reducers/auth";
-// import orderReducer from "./store/reducers/order";
-// import burgerBuilderReducer from "./store/reducers/burgerBuilder";
+import accountReducer from "./store/reducers/accounts";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = {
-  // burger: burgerBuilderReducer,
-  // order: orderReducer,
+  account: accountReducer,
   auth: authReducer,
 };
 
