@@ -4,12 +4,14 @@ import ListAccountsHeader from "./ListAccountsHeader/ListAccountsHeader";
 import styles from "./ListAccounts.module.css";
 
 const ListAccounts = (props) => {
-  const { accounts } = props;
+  const { accounts, userId } = props;
+
+  console.log(userId);
 
   const allAccount = accounts.map((account) => (
     <SingleAccount
       key={account.publicUserId}
-      userId={account.publicUserId}
+      publicUserId={account.publicUserId}
       email={account.email}
       profile={account.kindOfProfile}
       state={account.state}
