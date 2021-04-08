@@ -17,10 +17,12 @@ export const checkAuthTimeout = (expirationTime) => (dispatch) => {
 
 export const authStart = () => ({ type: actionTypes.AUTH_START });
 export const authFail = (error) => ({ type: actionTypes.AUTH_FAIL, error });
-export const authSuccess = (idToken, userId) => ({
+export const authSuccess = (idToken, userId, email, publicUserId) => ({
   type: actionTypes.AUTH_SUCCESS,
   idToken,
   userId,
+  email,
+  publicUserId,
 });
 
 const API_KEY = "AIzaSyD77f9kLXIJoWYeOlgrkH7s9QXf9r9JxdE";
@@ -29,7 +31,7 @@ const SIGN_UP = `${REST_API}signUp?key=${API_KEY}`;
 const SIGN_IN = `${REST_API}signInWithPassword?key=${API_KEY}`;
 
 /* >>> Redux-Thunk <<< */
-export const auth = (email, password, isSignup) => (dispatch) => {
+export const auth = (email, password, isSignup, publicUserId) => (dispatch) => {
   dispatch(authStart());
   const authData = {
     email,
@@ -47,7 +49,7 @@ export const auth = (email, password, isSignup) => (dispatch) => {
       localStorage.setItem("token", idToken);
       localStorage.setItem("expirationDate", expirationDate);
       localStorage.setItem("userId", localId);
-      dispatch(authSuccess(idToken, localId));
+      dispatch(authSuccess(idToken, localId, email, publicUserId));
       dispatch(checkAuthTimeout(expiresIn));
     })
     .catch((err) => dispatch(authFail(err.response.data.error)));

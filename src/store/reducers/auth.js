@@ -17,6 +17,8 @@ const authSuccess = (state, action) => ({
   ...state,
   idToken: action.idToken,
   userId: action.userId,
+  email: action.email,
+  publicUserId: action.publicUserId,
   error: null,
   loading: false,
 });
@@ -29,6 +31,8 @@ const authLogout = (state, action) => ({
   ...state,
   idToken: null,
   userId: null,
+  email: null,
+  publicUserId: null,
 });
 
 const reducer = (state = initialState, action) => {

@@ -11,7 +11,7 @@ import * as actionCreators from "../../store/actions/index";
 class Auth extends Component {
   state = {
     controls: {
-      userId: {
+      publicUserId: {
         elementType: "input",
         elementConfig: {
           type: "text",
@@ -20,7 +20,7 @@ class Auth extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 2,
+          minLength: 4,
         },
         valid: false,
         signInOption: false,
@@ -110,7 +110,7 @@ class Auth extends Component {
         formIsValid = updatedControls[key].valid && formIsValid;
       }
     }
-    if (updatedControls.password2.value) {
+    if (updatedControls.password.value) {
       formIsValid =
         updatedControls.password.value === updatedControls.password2.value;
     }
@@ -118,11 +118,16 @@ class Auth extends Component {
     this.setState({ controls: updatedControls, formIsValid });
   };
 
-  orderHandler = (e) => {
+  formHandler = (e) => {
     e.preventDefault();
-    const { email, password } = this.state.controls;
+    const { email, password, publicUserId } = this.state.controls;
     const { isSignup } = this.state;
-    this.props.onAuth(email.value, password.value, isSignup);
+    this.props.onAuth(
+      email.value,
+      password.value,
+      isSignup,
+      publicUserId.value
+    );
   };
 
   switchAuthModeHandler = () =>
@@ -165,7 +170,7 @@ class Auth extends Component {
               {this.state.isSignup ? "registration" : "login"}
             </h4>
             {errorMessage}
-            <form onSubmit={this.orderHandler}>
+            <form onSubmit={this.formHandler}>
               {allInputs}
               <WrapperAuth x="40">
                 <Button btnType="Success" disabled={!this.state.formIsValid}>
@@ -198,8 +203,8 @@ const mapStateToProps = ({ auth }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAuth: (email, password, isSignup) =>
-    dispatch(actionCreators.auth(email, password, isSignup)),
+  onAuth: (email, password, isSignup, publicUserId) =>
+    dispatch(actionCreators.auth(email, password, isSignup, publicUserId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
