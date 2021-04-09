@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SingleAccount.module.css";
 
 const SingleAccount = (props) => {
-  const { publicUserId, email, profile, state, role, myAccount } = props;
+  const [state, setState] = useState(props.state);
+  const [role, setRole] = useState(props.role);
+  const [classState, setClassState] = useState(null);
+  const [classRole, setClassRole] = useState(null);
+
+  const { publicUserId, email, profile, myAccount, myRole } = props;
+
+  useEffect(() => {
+    if (myRole === "GBO" && role === "USER") setClassState(styles.ChangeState);
+    if (myRole === "GA" && (role === "USER" || role === "GBO"))
+      setClassState(styles.ChangeState);
+    if (myRole === "SU" && (role === "USER" || role === "GBO" || role === "GA"))
+      setClassState(styles.ChangeState);
+
+    if (myRole === "GA" && (role === "USER" || role === "GBO"))
+      setClassRole(styles.ChangeRole);
+    if (myRole === "SU" && (role === "USER" || role === "GBO" || role === "GA"))
+      setClassRole(styles.ChangeRole);
+  }, []);
+
+  const stateHandler = () => {
+    if (myRole === "GBO" && role === "USER")
+      setState((prev) => (prev === "ENABLED" ? "DISABLED" : "ENABLED"));
+    if (myRole === "GA" && (role === "USER" || role === "GBO"))
+      setState((prev) => (prev === "ENABLED" ? "DISABLED" : "ENABLED"));
+    if (myRole === "SU" && (role === "USER" || role === "GBO" || role === "GA"))
+      setState((prev) => (prev === "ENABLED" ? "DISABLED" : "ENABLED"));
+  };
+
+  const roleHandler = () => {
+    if (myRole === "GA" && (role === "USER" || role === "GBO"))
+      setRole((prev) => (prev === "USER" ? "GBO" : "USER"));
+    if (myRole === "SU" && (role === "USER" || role === "GBO" || role === "GA"))
+      setRole((prev) =>
+        prev === "USER"
+          ? "GBO"
+          : prev === "GBO"
+          ? "GA"
+          : prev === "GA"
+          ? "USER"
+          : null
+      );
+  };
 
   const classNames = myAccount
     ? [styles.SingleAccount, styles.MyAccount].join(" ")
@@ -12,8 +54,12 @@ const SingleAccount = (props) => {
       <span>{publicUserId}</span>
       <span>{email}</span>
       <span>{profile}</span>
-      <span>{state}</span>
-      <span>{role}</span>
+      <span className={classState} onClick={stateHandler}>
+        {state}
+      </span>
+      <span className={classRole} onClick={roleHandler}>
+        {role}
+      </span>
     </div>
   );
 };
