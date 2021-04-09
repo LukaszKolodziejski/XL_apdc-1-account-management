@@ -6,13 +6,10 @@ import styles from "./ListAccounts.module.css";
 const ListAccounts = (props) => {
   const { accounts, userId } = props;
 
-  console.log(userId);
-  console.log(accounts);
-
   const myAccount = accounts.find((account) => account.userId === userId);
-  //   console.log(myAccount.publicUserId);
 
   const allAccount = accounts.map((account) => {
+    const isMyAccount = myAccount.userId === account.userId;
     if (myAccount.role === "USER") {
       if (account.role === "USER" && account.kindOfProfile === "Public") {
         return (
@@ -21,12 +18,49 @@ const ListAccounts = (props) => {
             publicUserId={account.publicUserId}
             email={account.email}
             profile={account.kindOfProfile}
-            state={account.state}
-            role={account.role}
-            myAccount={myAccount.userId === account.userId}
+            myAccount={isMyAccount}
           />
         );
       }
+    } else if (myAccount.role === "GBO") {
+      return (
+        <SingleAccount
+          key={account.publicUserId}
+          publicUserId={account.publicUserId}
+          email={account.email}
+          profile={account.kindOfProfile}
+          state={account.state}
+          role={account.role}
+          myRole={"GBO"}
+          myAccount={isMyAccount}
+        />
+      );
+    } else if (myAccount.role === "GA") {
+      return (
+        <SingleAccount
+          key={account.publicUserId}
+          publicUserId={account.publicUserId}
+          email={account.email}
+          profile={account.kindOfProfile}
+          state={account.state}
+          role={account.role}
+          myRole={"GA"}
+          myAccount={isMyAccount}
+        />
+      );
+    } else if (myAccount.role === "SU") {
+      return (
+        <SingleAccount
+          key={account.publicUserId}
+          publicUserId={account.publicUserId}
+          email={account.email}
+          profile={account.kindOfProfile}
+          state={account.state}
+          role={account.role}
+          myRole={"SU"}
+          myAccount={isMyAccount}
+        />
+      );
     }
   });
   return (
