@@ -10,9 +10,9 @@ const ListAccounts = (props) => {
 
   const dispatch = useDispatch();
 
-  const onChangeAccountsAttributes = (key, state, role) =>
+  const onChangeAccountsAttributes = (id, state, role) =>
     dispatch(
-      actionCreators.changeAccountsAttributes(accounts, key, state, role)
+      actionCreators.changeAccountsAttributes(accounts, id, state, role)
     );
 
   const myAccount = accounts.find((account) => account.userId === userId);
@@ -24,6 +24,7 @@ const ListAccounts = (props) => {
         return (
           <SingleAccount
             key={account.userId}
+            id={account.id}
             userId={account.userId}
             publicUserId={account.publicUserId}
             email={account.email}
@@ -37,6 +38,7 @@ const ListAccounts = (props) => {
       return (
         <SingleAccount
           key={account.userId}
+          id={account.id}
           userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}
@@ -52,6 +54,7 @@ const ListAccounts = (props) => {
       return (
         <SingleAccount
           key={account.userId}
+          id={account.id}
           userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}
@@ -67,6 +70,7 @@ const ListAccounts = (props) => {
       return (
         <SingleAccount
           key={account.userId}
+          id={account.id}
           userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}

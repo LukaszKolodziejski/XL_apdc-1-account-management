@@ -23,37 +23,45 @@ export const accounts = (token) => (dispatch) => {
   }
 };
 
-export const changeAccountsAttributes = (accounts, userId, state, role) => (
+export const changeAccountsAttributes = (accounts, id, state, role) => (
   dispatch
 ) => {
-  const account = accounts.find((account) => account.userId === userId);
-
-  const newAccountData = accounts.map((account) => {
-    if (account.userId === userId) {
-      const newData = {
-        ...account,
-        state,
-        role,
+  const convertArrayToObject = (array, key) => {
+    const initialValue = {};
+    return array.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item[key]]: item,
       };
-      return newData;
-    }
-  });
+    }, initialValue);
+  };
 
-  dispatch({
-    type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
-    accounts,
-    loadingAccounts: false,
-  });
+  const newAccounts = convertArrayToObject(accounts, "id");
 
-  // axios.put(`/accounts.json/${account.id}`, newAccountData).then((res) => {
-  //   const accounts = [];
-  //   for (let key in res.data) {
-  //     accounts.push({ ...res.data[key], id: key });
-  //   }
-  //   dispatch({
-  //     type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
-  //     accounts,
-  //     loadingAccounts: false,
-  //   });
+  const newAccountsData = {
+    ...newAccounts,
+    [id]: {
+      ...newAccounts[id],
+      state,
+      role,
+    },
+  };
+
+  // dispatch({
+  //   type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
+  //   accounts,
+  //   loadingAccounts: false,
   // });
+
+  axios.put(`/accounts.json`, newAccountsData).then((res) => {
+    const accounts = [];
+    for (let key in res.data) {
+      accounts.push({ ...res.data[key], id: key });
+    }
+    dispatch({
+      type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
+      accounts,
+      loadingAccounts: false,
+    });
+  });
 };

@@ -9,6 +9,7 @@ const SingleAccount = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const {
+    id,
     userId,
     publicUserId,
     email,
@@ -19,8 +20,8 @@ const SingleAccount = (props) => {
   } = props;
 
   useEffect(() => {
-    if (isLoaded) onChangeAttributes(userId, state, role);
-  }, [state, role, onChangeAttributes]);
+    if (isLoaded) onChangeAttributes(id, state, role);
+  }, [state, role]);
 
   useEffect(() => {
     if (myRole === "GBO" && role === "USER") setClassState(styles.ChangeState);
