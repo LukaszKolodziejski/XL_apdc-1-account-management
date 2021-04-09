@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SingleAccount.module.css";
+import * as actionCreators from "../../../store/actions/index";
+import { connect } from "react-redux";
 
 const SingleAccount = (props) => {
   const [state, setState] = useState(props.state);
@@ -16,6 +18,7 @@ const SingleAccount = (props) => {
     profile,
     myAccount,
     myRole,
+    onDelete,
     onChangeAttributes,
   } = props;
 
@@ -64,17 +67,36 @@ const SingleAccount = (props) => {
   const classNames = myAccount
     ? [styles.SingleAccount, styles.MyAccount].join(" ")
     : styles.SingleAccount;
+
+  const deleteHandler = () => onDelete(id);
+
+  let button;
+  if ((myRole === "GA" || myRole === "GBO") && role === "USER") {
+    button = (
+      <button className={styles.Delete} onClick={deleteHandler}>
+        Delete
+      </button>
+    );
+  } else if (myRole === "USER" && myAccount) {
+    button = (
+      <button className={styles.Delete} onClick={deleteHandler}>
+        Delete
+      </button>
+    );
+  }
+
   return (
     <div className={classNames}>
       <span>{publicUserId}</span>
       <span>{email}</span>
       <span>{profile}</span>
       <span className={classState} onClick={stateHandler}>
-        {state}
+        {myRole === "USER" ? null : state}
       </span>
       <span className={classRole} onClick={roleHandler}>
-        {role}
+        {myRole === "USER" ? null : role}
       </span>
+      {button}
     </div>
   );
 };
