@@ -2,12 +2,20 @@ import * as actionTypes from "./actionTypes";
 import * as actions from "./index";
 import axios from "../../axios-data";
 
-export const logout = () => {
+export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
-  return { type: actionTypes.AUTH_LOGOUT };
+  dispatch(actions.accounts(null));
+  dispatch({ type: actionTypes.AUTH_LOGOUT });
 };
+
+// export const logout = () => {
+//   localStorage.removeItem("token");
+//   localStorage.removeItem("expirationDate");
+//   localStorage.removeItem("userId");
+//   return { type: actionTypes.AUTH_LOGOUT };
+// };
 
 export const checkAuthTimeout = (expirationTime) => (dispatch) => {
   setTimeout(() => {
@@ -65,6 +73,7 @@ export const authCheckState = () => (dispatch) => {
 
   if (!token) {
     dispatch(logout());
+    dispatch(actions.accounts(null));
   } else {
     if (expirationDate > new Date()) {
       dispatch(authStart());
@@ -73,6 +82,7 @@ export const authCheckState = () => (dispatch) => {
       dispatch(actions.accounts(token));
     } else {
       dispatch(logout());
+      dispatch(actions.accounts(null));
     }
   }
 };

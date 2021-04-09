@@ -33,6 +33,7 @@ const authLogout = (state, action) => ({
   userId: null,
   email: null,
   publicUserId: null,
+  // loading: false,
 });
 
 const reducer = (state = initialState, action) => {

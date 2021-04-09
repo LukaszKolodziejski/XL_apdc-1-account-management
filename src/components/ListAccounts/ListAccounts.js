@@ -2,9 +2,18 @@ import React from "react";
 import SingleAccount from "./SingleAccount/SingleAccount";
 import ListAccountsHeader from "./ListAccountsHeader/ListAccountsHeader";
 import styles from "./ListAccounts.module.css";
+import { useDispatch } from "react-redux";
+import * as actionCreators from "../../store/actions/index";
 
 const ListAccounts = (props) => {
   const { accounts, userId } = props;
+
+  const dispatch = useDispatch();
+
+  const onChangeAccountsAttributes = (key, state, role) =>
+    dispatch(
+      actionCreators.changeAccountsAttributes(accounts, key, state, role)
+    );
 
   const myAccount = accounts.find((account) => account.userId === userId);
 
@@ -14,18 +23,21 @@ const ListAccounts = (props) => {
       if (account.role === "USER" && account.kindOfProfile === "Public") {
         return (
           <SingleAccount
-            key={account.publicUserId}
+            key={account.userId}
+            userId={account.userId}
             publicUserId={account.publicUserId}
             email={account.email}
             profile={account.kindOfProfile}
             myAccount={isMyAccount}
+            onChangeAttributes={onChangeAccountsAttributes}
           />
         );
       }
     } else if (myAccount.role === "GBO") {
       return (
         <SingleAccount
-          key={account.publicUserId}
+          key={account.userId}
+          userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}
           profile={account.kindOfProfile}
@@ -33,12 +45,14 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"GBO"}
           myAccount={isMyAccount}
+          onChangeAttributes={onChangeAccountsAttributes}
         />
       );
     } else if (myAccount.role === "GA") {
       return (
         <SingleAccount
-          key={account.publicUserId}
+          key={account.userId}
+          userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}
           profile={account.kindOfProfile}
@@ -46,12 +60,14 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"GA"}
           myAccount={isMyAccount}
+          onChangeAttributes={onChangeAccountsAttributes}
         />
       );
     } else if (myAccount.role === "SU") {
       return (
         <SingleAccount
-          key={account.publicUserId}
+          key={account.userId}
+          userId={account.userId}
           publicUserId={account.publicUserId}
           email={account.email}
           profile={account.kindOfProfile}
@@ -59,6 +75,7 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"SU"}
           myAccount={isMyAccount}
+          onChangeAttributes={onChangeAccountsAttributes}
         />
       );
     }
