@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import styles from "./ListAccountsHeader.module.css";
+import * as actionCreators from "../../../store/actions/index";
 
 const ListAccountsHeader = (props) => {
   const showSection = props.role === "USER";
@@ -8,10 +10,17 @@ const ListAccountsHeader = (props) => {
       <span>User ID</span>
       <span>E-mail</span>
       <span>Profile</span>
-      {showSection ? <span>State</span> : null}
-      {showSection ? <span>Role</span> : null}
+      {!showSection && <span>State</span>}
+      {!showSection && <span>Role</span>}
+      <button className={styles.Logout} onClick={() => props.onLogout()}>
+        Logout
+      </button>
     </p>
   );
 };
 
-export default ListAccountsHeader;
+const mapDispatchToProps = (dispatch) => ({
+  onLogout: () => dispatch(actionCreators.logout()),
+});
+
+export default connect(null, mapDispatchToProps)(ListAccountsHeader);
