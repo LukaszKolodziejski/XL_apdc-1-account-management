@@ -61,7 +61,7 @@
   color: rgb(255, 255, 255);
 }
 .ChangeState:hover {
-  box-shadow: 1px 1px 5px 2px rgba(241, 159, 7, 0.966);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.619);
 }
 
 .ChangeRole {
@@ -79,4 +79,17 @@
 }
 .ChangeRole:hover {
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.619);
+}
+
+.Delete {
+  transition: 0.2s;
+  background-color: rgba(135, 87, 24, 0.503);
+  border-radius: 10px;
+  border: 1px solid rgb(99, 64, 18);
+  font-weight: bold;
+  cursor: pointer;
+}
+.Delete:hover {
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.619);
+  background-color: rgba(135, 87, 24, 0.449);
 }

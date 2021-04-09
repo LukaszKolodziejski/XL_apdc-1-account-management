@@ -15,6 +15,9 @@ const ListAccounts = (props) => {
       actionCreators.changeAccountsAttributes(accounts, id, state, role)
     );
 
+  const onDeleteAccount = (id) =>
+    dispatch(actionCreators.deleteAccount(accounts, id));
+
   const myAccount = accounts.find((account) => account.userId === userId);
 
   const allAccount = accounts.map((account) => {
@@ -29,7 +32,11 @@ const ListAccounts = (props) => {
             publicUserId={account.publicUserId}
             email={account.email}
             profile={account.kindOfProfile}
+            state={account.state}
+            role={account.role}
+            myRole={"USER"}
             myAccount={isMyAccount}
+            onDelete={onDeleteAccount}
             onChangeAttributes={onChangeAccountsAttributes}
           />
         );
@@ -47,6 +54,7 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"GBO"}
           myAccount={isMyAccount}
+          onDelete={onDeleteAccount}
           onChangeAttributes={onChangeAccountsAttributes}
         />
       );
@@ -63,6 +71,8 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"GA"}
           myAccount={isMyAccount}
+          onDelete={onDeleteAccount}
+          onDelete={onDeleteAccount}
           onChangeAttributes={onChangeAccountsAttributes}
         />
       );
@@ -79,6 +89,7 @@ const ListAccounts = (props) => {
           role={account.role}
           myRole={"SU"}
           myAccount={isMyAccount}
+          onDelete={onDeleteAccount}
           onChangeAttributes={onChangeAccountsAttributes}
         />
       );
