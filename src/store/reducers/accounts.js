@@ -1,4 +1,4 @@
-import * as actionType from "../actions/actionTypes";
+import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   accounts: [],
@@ -11,7 +11,21 @@ const accounts = (state, action) => ({
   loadingAccounts: action.loadingAccounts,
 });
 
-const reducer = (state = initialState, action) =>
-  action.type === actionType.ACCOUNTS ? accounts(state, action) : state;
+const changeAccountsAttributes = (state, action) => ({
+  ...state,
+  accounts: action.accounts,
+  loadingAccounts: action.loadingAccounts,
+});
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ACCOUNTS:
+      return accounts(state, action);
+    case actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES:
+      return changeAccountsAttributes(state, action);
+    default:
+      return state;
+  }
+};
 
 export default reducer;

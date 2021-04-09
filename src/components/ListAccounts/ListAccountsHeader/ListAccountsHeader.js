@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import styles from "./ListAccountsHeader.module.css";
+import { connect } from "react-redux";
 import * as actionCreators from "../../../store/actions/index";
 
 const ListAccountsHeader = (props) => {

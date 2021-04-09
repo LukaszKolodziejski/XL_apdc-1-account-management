@@ -7,4 +7,4 @@ export {
   authCheckState,
   checkAuthTimeout,
 } from "./auth";
-export { accounts } from "./accounts";
+export { accounts, changeAccountsAttributes } from "./accounts";

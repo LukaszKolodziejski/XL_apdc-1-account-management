@@ -6,8 +6,22 @@ const SingleAccount = (props) => {
   const [role, setRole] = useState(props.role);
   const [classState, setClassState] = useState(null);
   const [classRole, setClassRole] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const { publicUserId, email, profile, myAccount, myRole } = props;
+  const {
+    id,
+    userId,
+    publicUserId,
+    email,
+    profile,
+    myAccount,
+    myRole,
+    onChangeAttributes,
+  } = props;
+
+  useEffect(() => {
+    if (isLoaded) onChangeAttributes(id, state, role);
+  }, [state, role]);
 
   useEffect(() => {
     if (myRole === "GBO" && role === "USER") setClassState(styles.ChangeState);
@@ -20,6 +34,7 @@ const SingleAccount = (props) => {
       setClassRole(styles.ChangeRole);
     if (myRole === "SU" && (role === "USER" || role === "GBO" || role === "GA"))
       setClassRole(styles.ChangeRole);
+    setIsLoaded(true);
   }, []);
 
   const stateHandler = () => {

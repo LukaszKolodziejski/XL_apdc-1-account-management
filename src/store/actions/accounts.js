@@ -2,15 +2,64 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-data";
 
 export const accounts = (token) => (dispatch) => {
-  axios.get(`/accounts.json?auth=${token}`).then((res) => {
-    console.log("res.data");
-    console.log(res.data);
+  if (token) {
+    axios.get(`/accounts.json?auth=${token}`).then((res) => {
+      const accounts = [];
+      for (let key in res.data) {
+        accounts.push({ ...res.data[key], id: key });
+      }
+      dispatch({
+        type: actionTypes.ACCOUNTS,
+        accounts,
+        loadingAccounts: false,
+      });
+    });
+  } else {
+    dispatch({
+      type: actionTypes.ACCOUNTS,
+      accounts: [],
+      loadingAccounts: true,
+    });
+  }
+};
+
+export const changeAccountsAttributes = (accounts, id, state, role) => (
+  dispatch
+) => {
+  const convertArrayToObject = (array, key) => {
+    const initialValue = {};
+    return array.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item[key]]: item,
+      };
+    }, initialValue);
+  };
+
+  const newAccounts = convertArrayToObject(accounts, "id");
+
+  const newAccountsData = {
+    ...newAccounts,
+    [id]: {
+      ...newAccounts[id],
+      state,
+      role,
+    },
+  };
+
+  // dispatch({
+  //   type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
+  //   accounts,
+  //   loadingAccounts: false,
+  // });
+
+  axios.put(`/accounts.json`, newAccountsData).then((res) => {
     const accounts = [];
     for (let key in res.data) {
       accounts.push({ ...res.data[key], id: key });
     }
     dispatch({
-      type: actionTypes.ACCOUNTS,
+      type: actionTypes.CHANGE_ACCOUNTS_ATTRIBUTES,
       accounts,
       loadingAccounts: false,
     });
