@@ -7,7 +7,8 @@
   box-shadow: 0 2px 3px #ccc;
   border-radius: 10px;
   padding: 10px;
-  margin: 10px auto;
+  margin: 10px auto 5%;
+  min-height: 90vh;
 }
 
 .Token {

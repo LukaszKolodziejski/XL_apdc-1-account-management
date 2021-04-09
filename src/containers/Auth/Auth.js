@@ -170,7 +170,6 @@ class Auth extends Component {
               {this.state.isSignup ? "registration" : "login"}
             </h4>
             {errorMessage}
-            <button onClick={() => this.props.onLogout()}>Logout</button>
             <form onSubmit={this.formHandler}>
               {allInputs}
               <WrapperAuth x="40">
