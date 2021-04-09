@@ -3,7 +3,7 @@
 > #### Account SU
 
 Login: 
-adminsu@pt.unl
+adminSU@pt.unl
 
 Password:
 FctAPDC-Project1!
